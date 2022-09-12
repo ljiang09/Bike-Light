@@ -1,26 +1,25 @@
+// declare pins
 const int buttonPin = 8;
 const int redPin = 9;
 const int greenPin = 10;
 const int yellowPin = 11;
 const int POTENTIOMETER_PIN = A0; // POTENTIOMETER
+
+// light mode control variables
 int counter = 0;
-bool press = false;
-long currentTime = 0;
-
-int longDelay = 500;
-int shortDelay = 200;
-
-enum states{
-  STATE0,
-  STATE1,
-  STATE2,
-  STATE3,
-  STATE4,
-  STATE5
+enum states {
+    STATE0,
+    STATE1,
+    STATE2,
+    STATE3,
+    STATE4,
+    STATE5
 };
 states state;
 
-unsigned long debounceDuration = 100; //unit: millisecond
+// variables for bounce
+long currentTime = 0;
+unsigned long debounceDuration = 100; // unit: millisecond
 unsigned long lastTime = 0;
 unsigned long timerOne = 0;
 
@@ -41,13 +40,14 @@ void setup() {
   // designate pin A0 as an Analog INPUT for the potentiometer
   pinMode (A0, INPUT);
 
+
   state = STATE0;
 
   Serial.begin(9600);
 }
 
 void loop() {
-    unsigned long currentTime = millis();
+    currentTime = millis();
     
     if(currentTime > lastTime + debounceDuration){
         byte currentState = digitalRead(buttonPin);
@@ -207,8 +207,10 @@ void loop() {
         }
         else if (millis() - timerOne < 7400) {
             digitalWrite(yellowPin, HIGH);
-        } else if (millis() - timerOne < 8000) {
+        } else if (millis() - timerOne < 9000) {
             digitalWrite(yellowPin, LOW);
+        } else {
+          startState5 = true;
         }
         
         break;
