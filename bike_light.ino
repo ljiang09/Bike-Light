@@ -5,6 +5,7 @@ const int yellowPin = 11;
 const int POTENTIOMETER_PIN = A0; // POTENTIOMETER
 int counter = 0;
 bool press = false;
+long currentTime = 0;
 
 int longDelay = 500;
 int shortDelay = 200;
@@ -89,9 +90,9 @@ void loop() {
     // Green light shows, brighter based on potentiometer
     case STATE2:
         Serial.println("state 2");
-        int potentiometerValue = analogRead(POTENTIOMETER_PIN);
-        int brightness = potentiometerValue / 4;
-        analogWrite(greenPin, brightness);
+//        int potentiometerValue = analogRead(POTENTIOMETER_PIN);
+//        int brightness = potentiometerValue / 4;
+//        analogWrite(greenPin, brightness);
         break;
 
     // all LEDs turn on
@@ -129,6 +130,7 @@ void loop() {
 
     // green light reveals a secret code (this is what gatsby was trying to decipher)
     case STATE5:
+        // -- .. .-.. ..-.
         digitalWrite(redPin, LOW);
         digitalWrite(greenPin, LOW);
         digitalWrite(yellowPin, LOW);
@@ -137,59 +139,112 @@ void loop() {
         const int longOn = 600;
         const int shortDelay = 200;
         const int longDelay = 400;
-        long currentTime = 0;
 
-        // -- .. .-.. ..-.
         if (startState5 > 0) {
             timerOne = millis();    // start a timerOne
             startState5 = false;
+            Serial.println(timerOne);
         }
 
-        if (millis() - timerOne < currentTime + longOn) {
+        // --
+        if (millis() - timerOne < 600) {  // currentTime + longOn
             digitalWrite(yellowPin, HIGH);
-            currentTime += longOn;
             Serial.print("1 ");
             Serial.println(currentTime);
-        } else if (millis() - timerOne < currentTime + shortDelay) {
+        } else if (millis() - timerOne < 800) {  // currentTime + shortDelay
             digitalWrite(yellowPin, LOW);
+            currentTime += shortDelay;
             Serial.print("2 ");
             Serial.println(currentTime);
         }
-        else if (millis() - timerOne < currentTime + longOn) {
+        else if (millis() - timerOne < 1400) {  // currentTime + longOn
             digitalWrite(yellowPin, HIGH);
             currentTime += longOn;
             Serial.print("3 ");
             Serial.println(currentTime);
-        } else if (millis() - timerOne < currentTime + longDelay) {
+        } else if (millis() - timerOne < 2000) {  // currentTime + longDelay
             digitalWrite(yellowPin, LOW);
-            currentTime += longOn;
+            currentTime += longDelay;
             Serial.print("4 ");
             Serial.println(currentTime);
         }
 
-        if (millis() - timerOne < currentTime + shortOn) {
+        // ..
+        else if (millis() - timerOne < 2200) {  // currentTime + shortOn
             digitalWrite(yellowPin, HIGH);
             currentTime += shortOn;
-        } else if (millis() - timerOne < currentTime + shortDelay) {
+        } else if (millis() - timerOne < 2400) {  // currentTime + shortDelay
             digitalWrite(yellowPin, LOW);
-            currentTime += longOn;
+            currentTime += shortDelay;
         }
-        else if (millis() - timerOne < currentTime + shortOn) {
+        else if (millis() - timerOne < 2600) {  // currentTime + shortOn
             digitalWrite(yellowPin, HIGH);
             currentTime += shortOn;
-        } else if (millis() - timerOne < currentTime + longDelay) {
+        } else if (millis() - timerOne < 3200) {  // currentTime + longDelay
             digitalWrite(yellowPin, LOW);
-            currentTime += longOn;
+            currentTime += longDelay;
         }
 
-//        currentTime = flash(shortOn, shortDelay, currentTime);
-//        currentTime = flash(shortOn, longDelay, currentTime);
-//
-//        currentTime = flash(shortOn, shortDelay, currentTime);
-//        currentTime = flash(longOn, shortDelay, currentTime);
-//        currentTime = flash(shortOn, shortDelay, currentTime);
-//        currentTime = flash(shortOn, longDelay, currentTime);
+        // .-.. ..-.
+        else if (millis() - timerOne < 3400) {  // currentTime + shortOn
+            digitalWrite(yellowPin, HIGH);
+            currentTime += shortOn;
+        } else if (millis() - timerOne < 3600) {  // currentTime + shortDelay
+            digitalWrite(yellowPin, LOW);
+            currentTime += shortDelay;
+        }
+        else if (millis() - timerOne < 4200) {  // currentTime + longOn
+            digitalWrite(yellowPin, HIGH);
+            currentTime += longOn;
+        } else if (millis() - timerOne < 4400) {  // currentTime + shortDelay
+            digitalWrite(yellowPin, LOW);
+            currentTime += shortDelay;
+        }
+        else if (millis() - timerOne < 4600) {  // currentTime + shortOn
+            digitalWrite(yellowPin, HIGH);
+            currentTime += shortOn;
+        } else if (millis() - timerOne < 4800) {  // currentTime + shortDelay
+            digitalWrite(yellowPin, LOW);
+            currentTime += shortDelay;
+        }
+        else if (millis() - timerOne < 5000) {  // currentTime + shortOn
+            digitalWrite(yellowPin, HIGH);
+            currentTime += shortOn;
+        } else if (millis() - timerOne < 5600) {  // currentTime + longDelay
+            digitalWrite(yellowPin, LOW);
+            currentTime += longDelay;
+        }
 
+        // ..-.
+        else if (millis() - timerOne < 5800) {  // currentTime + shortOn
+            digitalWrite(yellowPin, HIGH);
+            currentTime += shortOn;
+        } else if (millis() - timerOne < 6000) {  // currentTime + shortDelay
+            digitalWrite(yellowPin, LOW);
+            currentTime += shortDelay;
+        }
+        else if (millis() - timerOne < 6200) {  // currentTime + shortOn
+            digitalWrite(yellowPin, HIGH);
+            currentTime += shortOn;
+        } else if (millis() - timerOne < 6400) {  // currentTime + shortDelay
+            digitalWrite(yellowPin, LOW);
+            currentTime += shortDelay;
+        }
+        else if (millis() - timerOne < 7000) {  // currentTime + longOn
+            digitalWrite(yellowPin, HIGH);
+            currentTime += longOn;
+        } else if (millis() - timerOne < 7200) {  // currentTime + shortDelay
+            digitalWrite(yellowPin, LOW);
+            currentTime += shortDelay;
+        }
+        else if (millis() - timerOne < 7400) {  // currentTime + shortOn
+            digitalWrite(yellowPin, HIGH);
+            currentTime += shortOn;
+        } else if (millis() - timerOne < 8000) {  // currentTime + longDelay
+            digitalWrite(yellowPin, LOW);
+            currentTime += longDelay;
+        }
+        
         break;
     }
 }
