@@ -47,7 +47,6 @@ void setup() {
 }
 
 void loop() {
-    // increment the counter to change the state
     unsigned long currentTime = millis();
     
     if(currentTime > lastTime + debounceDuration){
@@ -55,6 +54,8 @@ void loop() {
         if(currentState != previousState){
             previousState = currentState;
             lastTime = millis();
+
+            // change state based on button click
             if (currentState == LOW){
                 counter++;
                 if(counter % 6 == 0){state = STATE0;}
@@ -67,9 +68,10 @@ void loop() {
         }
     }
 
+
     switch(state) {
 
-    // The frist state should be blank to indicate the cycle is reset
+    // The first state should be blank to indicate the cycle is reset.
     case STATE0:
         digitalWrite(redPin, LOW);
         digitalWrite(yellowPin, LOW);
@@ -77,7 +79,7 @@ void loop() {
         startState5 = true;
         break;
 
-    // Blink red, faster blink based on potentiometer
+    // Blink red, faster blink based on potentiometer [DOESN"T WORK!!!!]
     case STATE1:
 //        int potValue = analogRead(POTENTIOMETER_PIN);
 //        Serial.println(potValue);
@@ -87,7 +89,7 @@ void loop() {
 //        delay (potValue);
         break;
 
-    // Green light shows, brighter based on potentiometer
+    // Green light shows, brighter based on potentiometer [DOESN"T WORK!!!!]
     case STATE2:
         Serial.println("state 2");
 //        int potentiometerValue = analogRead(POTENTIOMETER_PIN);
@@ -109,7 +111,7 @@ void loop() {
             digitalWrite(yellowPin, LOW);
             digitalWrite(redPin, LOW);
             digitalWrite(greenPin, LOW);
-            timerOne = millis();      // reset timer one
+            timerOne = millis();      // reset timerOne
         }
         else if (millis() - timerOne > 450) {
             digitalWrite(yellowPin, LOW);
@@ -247,23 +249,4 @@ void loop() {
         
         break;
     }
-}
-
-int flash(int onDuration, int delayDuration, int currentTime, bool needReset) {
-    if (needReset) {
-        timerOne = millis();
-        Serial.println(timerOne);
-    }
-    if (millis() - timerOne < currentTime+onDuration) {
-        digitalWrite(yellowPin, HIGH);
-        currentTime += onDuration;
-        Serial.println(currentTime);
-    } else if (millis() - timerOne < currentTime+delayDuration) {
-        digitalWrite(yellowPin, LOW);
-        currentTime += delayDuration;
-        Serial.println(currentTime);
-    }
-    Serial.println(currentTime);
-    Serial.println();
-    return currentTime;
 }
