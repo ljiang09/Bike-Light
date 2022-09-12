@@ -132,7 +132,7 @@ void loop() {
 
     // green light reveals a secret code (this is what gatsby was trying to decipher)
     case STATE5:
-        // -- .. .-.. ..-.
+        // -- .. .-.. -.-
         digitalWrite(redPin, LOW);
         digitalWrite(greenPin, LOW);
         digitalWrite(yellowPin, LOW);
@@ -149,102 +149,66 @@ void loop() {
         }
 
         // --
-        if (millis() - timerOne < 600) {  // currentTime + longOn
+        if (millis() - timerOne < 600) {
             digitalWrite(yellowPin, HIGH);
-            Serial.print("1 ");
-            Serial.println(currentTime);
-        } else if (millis() - timerOne < 800) {  // currentTime + shortDelay
+        } else if (millis() - timerOne < 800) {
             digitalWrite(yellowPin, LOW);
-            currentTime += shortDelay;
-            Serial.print("2 ");
-            Serial.println(currentTime);
         }
-        else if (millis() - timerOne < 1400) {  // currentTime + longOn
+        else if (millis() - timerOne < 1400) {
             digitalWrite(yellowPin, HIGH);
-            currentTime += longOn;
-            Serial.print("3 ");
-            Serial.println(currentTime);
-        } else if (millis() - timerOne < 2000) {  // currentTime + longDelay
+        } else if (millis() - timerOne < 2000) {
             digitalWrite(yellowPin, LOW);
-            currentTime += longDelay;
-            Serial.print("4 ");
-            Serial.println(currentTime);
         }
 
         // ..
-        else if (millis() - timerOne < 2200) {  // currentTime + shortOn
+        else if (millis() - timerOne < 2200) {
             digitalWrite(yellowPin, HIGH);
-            currentTime += shortOn;
-        } else if (millis() - timerOne < 2400) {  // currentTime + shortDelay
+        } else if (millis() - timerOne < 2400) {
             digitalWrite(yellowPin, LOW);
-            currentTime += shortDelay;
         }
-        else if (millis() - timerOne < 2600) {  // currentTime + shortOn
+        else if (millis() - timerOne < 2600) {
             digitalWrite(yellowPin, HIGH);
-            currentTime += shortOn;
-        } else if (millis() - timerOne < 3200) {  // currentTime + longDelay
+        } else if (millis() - timerOne < 3200) {
             digitalWrite(yellowPin, LOW);
-            currentTime += longDelay;
         }
 
         // .-.. ..-.
-        else if (millis() - timerOne < 3400) {  // currentTime + shortOn
+        else if (millis() - timerOne < 3400) {
             digitalWrite(yellowPin, HIGH);
-            currentTime += shortOn;
-        } else if (millis() - timerOne < 3600) {  // currentTime + shortDelay
+        } else if (millis() - timerOne < 3600) {
             digitalWrite(yellowPin, LOW);
-            currentTime += shortDelay;
         }
-        else if (millis() - timerOne < 4200) {  // currentTime + longOn
+        else if (millis() - timerOne < 4200) {
             digitalWrite(yellowPin, HIGH);
-            currentTime += longOn;
-        } else if (millis() - timerOne < 4400) {  // currentTime + shortDelay
+        } else if (millis() - timerOne < 4400) {
             digitalWrite(yellowPin, LOW);
-            currentTime += shortDelay;
         }
-        else if (millis() - timerOne < 4600) {  // currentTime + shortOn
+        else if (millis() - timerOne < 4600) {
             digitalWrite(yellowPin, HIGH);
-            currentTime += shortOn;
-        } else if (millis() - timerOne < 4800) {  // currentTime + shortDelay
+        } else if (millis() - timerOne < 4800) {
             digitalWrite(yellowPin, LOW);
-            currentTime += shortDelay;
         }
-        else if (millis() - timerOne < 5000) {  // currentTime + shortOn
+        else if (millis() - timerOne < 5000) {
             digitalWrite(yellowPin, HIGH);
-            currentTime += shortOn;
-        } else if (millis() - timerOne < 5600) {  // currentTime + longDelay
+        } else if (millis() - timerOne < 5600) {
             digitalWrite(yellowPin, LOW);
-            currentTime += longDelay;
         }
 
-        // ..-.
-        else if (millis() - timerOne < 5800) {  // currentTime + shortOn
+        // -.-
+        else if (millis() - timerOne < 6200) {
             digitalWrite(yellowPin, HIGH);
-            currentTime += shortOn;
-        } else if (millis() - timerOne < 6000) {  // currentTime + shortDelay
+        } else if (millis() - timerOne < 6400) {
             digitalWrite(yellowPin, LOW);
-            currentTime += shortDelay;
         }
-        else if (millis() - timerOne < 6200) {  // currentTime + shortOn
+        else if (millis() - timerOne < 6600) {
             digitalWrite(yellowPin, HIGH);
-            currentTime += shortOn;
-        } else if (millis() - timerOne < 6400) {  // currentTime + shortDelay
+        } else if (millis() - timerOne < 6800) {
             digitalWrite(yellowPin, LOW);
-            currentTime += shortDelay;
         }
-        else if (millis() - timerOne < 7000) {  // currentTime + longOn
+        else if (millis() - timerOne < 7400) {
             digitalWrite(yellowPin, HIGH);
-            currentTime += longOn;
-        } else if (millis() - timerOne < 7200) {  // currentTime + shortDelay
+        } else if (millis() - timerOne < 8000) {
             digitalWrite(yellowPin, LOW);
-            currentTime += shortDelay;
-        }
-        else if (millis() - timerOne < 7400) {  // currentTime + shortOn
-            digitalWrite(yellowPin, HIGH);
-            currentTime += shortOn;
-        } else if (millis() - timerOne < 8000) {  // currentTime + longDelay
-            digitalWrite(yellowPin, LOW);
-            currentTime += longDelay;
         }
         
         break;
