@@ -5,6 +5,9 @@ const int yellowPin = 11;
 int counter = 0;
 bool press = false;
 
+int longDelay = 500;
+int shortDelay = 200;
+
 void setup() {
   // put your setup code here, to run once:
   pinMode(yellowPin,OUTPUT);
@@ -55,12 +58,36 @@ void loop() {
       digitalWrite(yellowPin, LOW);
     }
 
+
     // morse code
     if (counter%5 == 4) {
-      digitalWrite(greenPin, HIGH);
-    } else {
-      digitalWrite(greenPin, LOW);
+      flash(greenPin, shortDelay);
+      flash(greenPin, longDelay);
+      flash(greenPin, longDelay);
+      flash(greenPin, shortDelay);
+      delay(300);
+
+      flash(greenPin, shortDelay);
+      flash(greenPin, shortDelay);
+      delay(300);
+
+      flash(greenPin, shortDelay);
+      flash(greenPin, shortDelay);
+      flash(greenPin, shortDelay);
+      delay(300);
+
+      flash(greenPin, shortDelay);
+      flash(greenPin, shortDelay);
+      flash(greenPin, shortDelay);
+      delay(600);
     }
   }
 
+}
+
+void flash(int ledPin, int duration) {
+  digitalWrite(ledPin, HIGH);
+  delay(duration);
+  digitalWrite(ledPin, LOW);
+  delay(shortDelay);
 }
