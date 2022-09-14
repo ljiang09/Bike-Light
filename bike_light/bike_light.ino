@@ -17,12 +17,13 @@ enum states {
 };
 states state;
 
-// variables for debounce
+// variables for bounce
 long currentTime = 0;
 unsigned long debounceDuration = 100; // unit: millisecond
 unsigned long lastTime = 0;
-
 unsigned long timerOne = 0;
+unsigned long timerTwo = 0;
+
 byte previousState = LOW;
 byte lightState = HIGH;
 bool startState5 = false;
@@ -33,14 +34,7 @@ void setup() {
   pinMode(redPin,OUTPUT);
   pinMode(greenPin,OUTPUT);
   pinMode(buttonPin,INPUT);
-  pinMode(POTENTIOMETER_PIN,INPUT)
-
-  // designate pin 13 as an OUTPUT pin for the LED
-  //pinMode (10, OUTPUT);
-
-  // designate pin A0 as an Analog INPUT for the potentiometer
-  //pinMode (A0, INPUT);
-
+  pinMode(POTENTIOMETER_PIN,INPUT);
 
   state = STATE0;
 
@@ -59,6 +53,8 @@ void loop() {
             // change state based on button click
             if (currentState == LOW){
                 counter++;
+                Serial.print("state");
+                Serial.println(counter % 6);
                 if(counter % 6 == 0){state = STATE0;}
                 if(counter % 6 == 1){state = STATE1;}
                 if(counter % 6 == 2){state = STATE2;}
@@ -83,14 +79,13 @@ void loop() {
     // Blink red, faster blink based on potentiometer [DOESN"T WORK!!!!]
     case STATE1:
         int potValue = analogRead(POTENTIOMETER_PIN);
-        if(millis() > timerTwo + potValue){
-          digitalWrite(greenPin, LOW);
-          timerTwo = millis();
+        if (millis() - timerTwo > potValue) {
+            digitalWrite(greenPin, LOW);
+            timerTwo = millis();
         }
-        else if (millis() > timerTwo + potValue / 2){
-          digitalWrite(greenPin, HIGH);
+        else if (millis() - timerTwo > potValue / 2) {
+            digitalWrite(greenPin, HIGH);
         }
-        break;
         break;
 
     // Green light shows, brighter based on potentiometer [DOESN"T WORK!!!!]
