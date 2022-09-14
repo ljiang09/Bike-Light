@@ -53,8 +53,6 @@ void loop() {
             // change state based on button click
             if (currentState == LOW){
                 counter++;
-                Serial.print("state");
-                Serial.println(counter % 6);
                 if(counter % 6 == 0){state = STATE0;}
                 if(counter % 6 == 1){state = STATE1;}
                 if(counter % 6 == 2){state = STATE2;}
@@ -64,7 +62,6 @@ void loop() {
             }
         }
     }
-
 
     switch(state) {
 
@@ -78,27 +75,23 @@ void loop() {
 
     // Blink red, faster blink based on potentiometer [DOESN"T WORK!!!!]
     case STATE1:
-        int potValue = analogRead(POTENTIOMETER_PIN);
-        if (millis() - timerTwo > potValue) {
+        if (millis() - timerTwo > analogRead(POTENTIOMETER_PIN)) {
             digitalWrite(greenPin, LOW);
             timerTwo = millis();
         }
-        else if (millis() - timerTwo > potValue / 2) {
+        else if (millis() - timerTwo > analogRead(POTENTIOMETER_PIN) / 2) {
             digitalWrite(greenPin, HIGH);
         }
         break;
 
     // Green light shows, brighter based on potentiometer [DOESN"T WORK!!!!]
     case STATE2:
-        Serial.println("state 2");
-//        int potentiometerValue = analogRead(POTENTIOMETER_PIN);
-//        int brightness = potentiometerValue / 4;
-//        analogWrite(greenPin, brightness);
+        digitalWrite(greenPin, LOW);
+        analogWrite(redPin, analogRead(POTENTIOMETER_PIN) / 4);
         break;
 
     // all LEDs turn on
     case STATE3:
-        Serial.println("state 3");
         digitalWrite(redPin, HIGH);
         digitalWrite(greenPin, HIGH);
         digitalWrite(yellowPin, HIGH);
